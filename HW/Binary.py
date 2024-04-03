@@ -1,34 +1,29 @@
-def binary_search(list_num , to_search):
-    first_index = 0
-    size = len(list_num)
-    last_index = size - 1
-    mid_index = (first_index + last_index) // 2
-    #print(mid_index)
-    mid_element = list_num[mid_index]
-    #print(mid_element)
-    is_found = True
-    while is_found:
-        if first_index == last_index:
-            if mid_element != to_search:
-                is_found = False
-                return "-1"
-        elif mid_element == to_search:
-            return f"{mid_element} находится в положении {mid_index}"
+def binary_search(list_num, first_index, last_index, to_search):
+    if last_index >= first_index:
+       
+        mid_index = (first_index + last_index) // 2
+        mid_element = list_num[mid_index]
+       
+ 
+        if mid_element == to_search:
+            return f"{mid_element} находится в позиции {mid_index}"
+ 
         elif mid_element > to_search:
             new_position = mid_index - 1
-            last_index = new_position
-            mid_index = (first_index + last_index) // 2
-            mid_element = list_num[mid_index]
-            if mid_element == to_search:
-                return f"{mid_element} находится в положении {mid_index}"
+            # new last index is the new position
+            return binary_search(list_num, first_index, new_position, to_search)
+ 
         elif mid_element < to_search:
             new_position = mid_index + 1
-            first_index = new_position
-            last_index = size - 1
-            mid_index = (first_index + last_index) // 2
-            mid_element = list_num[mid_index]
-            if mid_element == to_search:
-                return f"{mid_element} находится в положении {mid_index}"
-list_container = [2 , 56 , 23 , 86 , 96 , 87 , 63 , 45]
-print(binary_search(list_container , 86))
-print(binary_search(list_container , 33))
+             # new first index is the new position
+            return binary_search(list_num, new_position, last_index, to_search)
+ 
+    else:
+        return "-1"
+       
+list_container = [ 1, 9, 11, 21, 34, 54, 67, 90 ]
+search = 34
+first = 0
+last= len(list_container) - 1
+ 
+print(binary_search(list_container,first,last,search))
